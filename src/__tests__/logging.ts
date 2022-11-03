@@ -12,12 +12,12 @@ export default {
   },
 
   writeText: console.log,
-  progress: {
+  progress: ({
     get: () => {
       // empty function
     },
     create: () => {
       // empty function
     },
-  } as unknown as Logging['progress'],
+  } as unknown) as Logging['progress'],
 } as Logging;
