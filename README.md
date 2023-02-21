@@ -1,10 +1,10 @@
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b321644ef368976aee12/maintainability)](https://codeclimate.com/github/beforeyoubid/serverless-step-functions-offline/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b321644ef368976aee12/maintainability)](https://codeclimate.com/github/duy84/serverless-step-functions-offline/maintainability)
 
 
-[![NPM](https://nodei.co/npm/@beforeyoubid/serverless-step-functions-offline.png)](https://nodei.co/npm/@beforeyoubid/serverless-step-functions-offline/)
+[![NPM](https://nodei.co/npm/@duy84/serverless-step-functions-offline.png)](https://nodei.co/npm/@duy84/serverless-step-functions-offline/)
 
-# serverless-step-functions-offline ![circleci status](https://circleci.com/gh/beforeyoubid/serverless-step-functions-offline.svg?style=shield)
+# serverless-step-functions-offline ![circleci status](https://circleci.com/gh/duy84/serverless-step-functions-offline.svg?style=shield)
 
 ## Documentation
 
@@ -20,11 +20,11 @@
 # Install
 Using NPM:
 ```bash
-npm install @beforeyoubid/serverless-step-functions-offline --save-dev
+npm install @duy84/serverless-step-functions-offline --save-dev
 ```
 or Yarn:
 ```bash
-yarn add @beforeyoubid/serverless-step-functions-offline --dev
+yarn add @duy84/serverless-step-functions-offline --dev
 ```
 
 # Setup
@@ -33,7 +33,7 @@ Add the plugin to your `serverless.yml`:
 # serverless.yml
 
 plugins:
-  - '@beforeyoubid/serverless-step-functions-offline'
+  - '@duy84/serverless-step-functions-offline'
 ```
 
 To verify that the plugin works, run this in your command line:
@@ -61,7 +61,7 @@ For example:
 service: ServerlessStepPlugin
 frameworkVersion: ">=1.13.0 <2.0.0"
 plugins:
-   - '@beforeyoubid/serverless-step-functions-offline'
+   - '@duy84/serverless-step-functions-offline'
 
 # ...
 
@@ -135,7 +135,7 @@ precedes `serverless-step-functions-offline` as the order is important:
     ...
     - serverless-webpack
     ...
-    - '@beforeyoubid/serverless-step-functions-offline'
+    - '@duy84/serverless-step-functions-offline'
     ...
 ```
 
