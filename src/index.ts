@@ -490,11 +490,11 @@ export default class StepFunctionsOfflinePlugin implements Plugin {
     // just push task to general array
     //before each task restore global default env variables
     process.env = Object.assign({}, this.environmentVariables);
-    const functionName = this.variables?.[stateName];
-    const f = functionName ? this.functions[functionName] : null;
+    const functionName = this.variables?.[stateName] ?? '';
+    const f = this._getFunctionByName(functionName);
     if (f === undefined || f === null) {
-      this.cliLog(`Function "${stateName}" does not presented in serverless manifest`);
-      throw new Error(`Function "${stateName}" does not presented in serverless manifest`);
+      this.cliLog(`Function "${functionName}" does not presented in serverless manifest`);
+      throw new Error(`Function "${functionName}" does not presented in serverless manifest`);
     }
     if (!definitionIsHandler(f)) return;
     const { handler, filePath } = this._findFunctionPathAndHandler(f.handler);
@@ -506,6 +506,13 @@ export default class StepFunctionsOfflinePlugin implements Plugin {
       name: stateName,
       f: () => import(path.join(this.location, filePath)).then(mod => mod[handler]),
     };
+  }
+
+  _getFunctionByName(functionName: string) {
+    if (!(this.functions instanceof Array)) {
+      return this.functions?.[functionName] ?? null;
+    }
+    return _.get(this.functions, '[1].' + functionName) ?? null;
   }
 
   _handleParallel(currentState: Parallel): StateValueReturn {
