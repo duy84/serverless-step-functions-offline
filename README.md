@@ -2,7 +2,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/b321644ef368976aee12/maintainability)](https://codeclimate.com/github/duy84/serverless-step-functions-offline/maintainability)
 
 
-[![NPM](https://nodei.co/npm/@duy84/serverless-step-functions-offline.png)](https://nodei.co/npm/@duy84/serverless-step-functions-offline/)
+[![NPM](https://nodei.co/npm/serverless-step-functions-emulator.png)](https://nodei.co/npm/serverless-step-functions-emulator/)
 
 # serverless-step-functions-offline ![circleci status](https://circleci.com/gh/duy84/serverless-step-functions-offline.svg?style=shield)
 
@@ -20,11 +20,11 @@
 # Install
 Using NPM:
 ```bash
-npm install @duy84/serverless-step-functions-offline --save-dev
+npm install serverless-step-functions-emulator --save-dev
 ```
 or Yarn:
 ```bash
-yarn add @duy84/serverless-step-functions-offline --dev
+yarn add serverless-step-functions-emulator --dev
 ```
 
 # Setup
@@ -33,7 +33,7 @@ Add the plugin to your `serverless.yml`:
 # serverless.yml
 
 plugins:
-  - '@duy84/serverless-step-functions-offline'
+  - serverless-step-functions-emulator
 ```
 
 To verify that the plugin works, run this in your command line:
@@ -59,45 +59,45 @@ For example:
 
 ```yaml
 service: ServerlessStepPlugin
-frameworkVersion: ">=1.13.0 <2.0.0"
+frameworkVersion: "3"
 plugins:
-   - '@duy84/serverless-step-functions-offline'
+  - serverless-step-functions
+  - serverless-step-functions-emulator
 
 # ...
 
 custom:
   stepFunctionsOffline:
-    FirstLambda: firstLambda #(v2.0)
+    StepOne: firstLambda
     # ...
-    # ...
-    SecondLambda: secondLambda #(v2.0)
+    StepTwo: secondLambda
 
 functions:
-    firstLambda:
-        handler: firstLambda/index.handler
-        name: TheFirstLambda
-    secondLambda:
-        handler: secondLambda/index.handler
-        name: TheSecondLambda
+  firstLambda:
+    handler: firstLambda/index.handler
+  secondLambda:
+    handler: secondLambda/index.handler
+
 stepFunctions:
   stateMachines:
     foo:
       definition:
         Comment: "An example of the Amazon States Language using wait states"
-        StartAt: FirstLambda
+        StartAt: StepOne
         States:
-            FirstLambda:
-              Type: Task
-              Resource: arn:aws:lambda:eu-west-1:123456789:function:TheFirstLambda
-              Next: SecondLambda
-            SecondLambda:
-              Type: Task
-              Resource: arn:aws:lambda:eu-west-1:123456789:function:TheSecondLambda
-              End: true
+          StepOne:
+            Type: Task
+            Resource: arn:aws:lambda:eu-west-1:123456789:function:${self:service}-${opt:stage, self:provider.stage}-firstLambda
+            Next: StepTwo
+          StepTwo:
+            Type: Task
+            Resource: arn:aws:lambda:eu-west-1:123456789:function:${self:service}-${opt:stage, self:provider.stage}-secondLambda
+            End: true
 ```
 
 Where:
 - `StepOne` is the name of step in state machine
+- Make sure `StepOne` has been defined in `custom.stepFunctionsOffline` and pointed to the Lambda function that has been defined in States. In this example is `firstLambda`
 - `firstLambda` is the name of function in section **functions**
 
 # Run Plugin
@@ -135,7 +135,7 @@ precedes `serverless-step-functions-offline` as the order is important:
     ...
     - serverless-webpack
     ...
-    - '@duy84/serverless-step-functions-offline'
+    - serverless-step-functions-emulator
     ...
 ```
 
