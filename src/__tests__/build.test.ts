@@ -16,7 +16,9 @@ describe('build.js', () => {
         console.log(res);
         expect(res).toBeUndefined();
       } catch (err) {
-        expect((err as Error).message).toEqual('Function "FirstLambda" does not presented in serverless manifest');
+        expect((err as Error).message).toEqual(
+          'Function "firstLamda" in state "FirstLambda" does not presented in serverless manifest'
+        );
       }
     });
 

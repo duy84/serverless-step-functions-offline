@@ -493,8 +493,8 @@ export default class StepFunctionsOfflinePlugin implements Plugin {
     const functionName = this.variables?.[stateName] ?? '';
     const f = this._getFunctionByName(functionName);
     if (f === undefined || f === null) {
-      this.cliLog(`Function "${functionName}" does not presented in serverless manifest`);
-      throw new Error(`Function "${functionName}" does not presented in serverless manifest`);
+      this.cliLog(`Function "${functionName}" in state "${stateName}" does not presented in serverless manifest`);
+      throw new Error(`Function "${functionName}" in state "${stateName}" does not presented in serverless manifest`);
     }
     if (!definitionIsHandler(f)) return;
     const { handler, filePath } = this._findFunctionPathAndHandler(f.handler);
@@ -512,7 +512,7 @@ export default class StepFunctionsOfflinePlugin implements Plugin {
     if (!(this.functions instanceof Array)) {
       return this.functions?.[functionName] ?? null;
     }
-    return _.get(this.functions, '[1].' + functionName) ?? null;
+    return _.get(_.find(this.functions, functionName), functionName) ?? null;
   }
 
   _handleParallel(currentState: Parallel): StateValueReturn {

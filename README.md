@@ -1,13 +1,10 @@
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
-[![Maintainability](https://api.codeclimate.com/v1/badges/b321644ef368976aee12/maintainability)](https://codeclimate.com/github/duy84/serverless-step-functions-offline/maintainability)
-
+[![npm version](https://badge.fury.io/js/serverless-step-functions-emulator.svg)](https://badge.fury.io/js/serverless-step-functions-offline)
+![circleci status](https://circleci.com/gh/duy84/serverless-step-functions-offline.svg?style=shield)
 
 [![NPM](https://nodei.co/npm/serverless-step-functions-emulator.png)](https://nodei.co/npm/serverless-step-functions-emulator/)
 
-# serverless-step-functions-offline ![circleci status](https://circleci.com/gh/duy84/serverless-step-functions-offline.svg?style=shield)
-
-## Documentation
-
+# serverless-step-functions-emulator
 - [Install](#install)
 - [Setup](#setup)
 - [Requirements](#requirements)
@@ -17,7 +14,7 @@
 - [Usage with serverless-wepback](#usage-with-serverless-webpack)
 
 
-# Install
+## Install
 Using NPM:
 ```bash
 npm install serverless-step-functions-emulator --save-dev
@@ -27,7 +24,7 @@ or Yarn:
 yarn add serverless-step-functions-emulator --dev
 ```
 
-# Setup
+## Setup
 Add the plugin to your `serverless.yml`:
 ```yaml
 # serverless.yml
@@ -45,14 +42,14 @@ It should rise an error like that:
 
 > Serverless plugin "serverless-step-functions-offline" initialization errored: Please add ENV_VARIABLES to section "custom"
 
-# Requirements
+## Requirements
 This plugin works only with [serverless-step-functions](https://github.com/horike37/serverless-step-functions).
 
 You must have this plugin installed and correctly specified statemachine definition using Amazon States Language.
 
 Example of statemachine definition you can see [here](https://github.com/horike37/serverless-step-functions#setup).
 
-# Usage
+## Usage
 After all steps are done, need to add to section **custom** in serverless.yml the key **stepFunctionsOffline** with properties *stateName*: name of lambda function.
 
 For example:
@@ -100,7 +97,7 @@ Where:
 - Make sure `StepOne` has been defined in `custom.stepFunctionsOffline` and pointed to the Lambda function that has been defined in States. In this example is `firstLambda`
 - `firstLambda` is the name of function in section **functions**
 
-# Run Plugin
+## Run Plugin
 ```bash
 sls step-functions-offline --stateMachine={{name}} --event={{path to event file}}
 ```
@@ -112,7 +109,7 @@ If you want to know where you are (in offline mode or not) you can use env varia
 
 By default `process.env.STEP_IS_OFFLINE = true`.
 
-# What does plugin support?
+## What does plugin support?
 | States | Support |
 | ------ | ------ |
 | ***Task*** | Supports *Retry* but at this moment **does not support fields** *Catch*, *TimeoutSeconds*, *HeartbeatSeconds* |
